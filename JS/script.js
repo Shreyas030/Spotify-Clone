@@ -106,7 +106,7 @@ const playMusic = (track, pause = false) => {
 
 
 async function displayAlbum() {
-    let a = await fetch(`./Songs/`);
+    let a = await fetch(`/Songs/`);
     let response = await a.text();
     // console.log(response);
 
@@ -121,11 +121,11 @@ async function displayAlbum() {
         const e = array[index];
 
 
-        if (e.href.includes("./Songs")) {
+        if (e.href.includes("/Songs")) {
             let folder = e.href.split("/").slice(-2)[0];
             // console.log(folder);
             //Get the metadata of the folder
-            let a = await fetch(`./Songs/${folder}/info.json`)
+            let a = await fetch(`/Songs/${folder}/info.json`)
             let response = await a.json();
             cardContainer.innerHTML = cardContainer.innerHTML + `<div data-folder="${folder}" class="card">
                         <div class="play">
@@ -138,7 +138,7 @@ async function displayAlbum() {
 
 
                         </div>
-                        <img src="./Songs/${folder}/cover.jpg" alt="">                       
+                        <img src="/Songs/${folder}/cover.jpg" alt="">                       
                         <h2>${response.title}</h2>
                         <p>${response.description}</p>
                     </div>`
@@ -151,7 +151,7 @@ async function displayAlbum() {
     // Use currentTarget when you want to handle events at a higher level (e.g., on a container) and need information about the container itself.
     Array.from(document.getElementsByClassName("card")).forEach(e => {
         e.addEventListener("click", async item => {
-            songs = await getSongs(`./Songs/${item.currentTarget.dataset.folder}`);
+            songs = await getSongs(`Songs/${item.currentTarget.dataset.folder}`);
             playMusic(songs[0]);
         })
     })
@@ -160,7 +160,7 @@ async function displayAlbum() {
 //! Main function to initialize the playlist and event listeners
 async function main() {
     // Get the list of all songs
-    await getSongs("./Songs/MIX");
+    await getSongs("Songs/MIX");
 
     // Load the first song without playing it
     playMusic(songs[0], true);
