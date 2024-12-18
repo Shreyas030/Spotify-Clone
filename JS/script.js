@@ -151,7 +151,7 @@ async function displayAlbum() {
     // Use currentTarget when you want to handle events at a higher level (e.g., on a container) and need information about the container itself.
     Array.from(document.getElementsByClassName("card")).forEach(e => {
         e.addEventListener("click", async item => {
-            songs = await getSongs(`Songs/${item.currentTarget.dataset.folder}`);
+            songs = await getSongs(`./Songs/${item.currentTarget.dataset.folder}`);
             playMusic(songs[0]);
         })
     })
